@@ -1,0 +1,78 @@
+#!/usr/bin/bash
+####### mohamed medhat mohamed ####### 
+####### gmail to comnnucate : mohamedmedhatt2003@gmail.com ####### 
+monitor_process(){
+    ps -ef
+}
+
+kill_process(){
+    kill $1
+}
+
+statics(){
+    echo "Total Number of Processes:"
+    ps aux | wc -l
+    echo "Memory Usage:"
+    free -m
+    echo "CPU Load:"
+    uptime
+}
+
+
+real_time_monitor() {
+    while true; do
+        clear
+        monitor_process
+        sleep 1s
+    done
+}
+
+search_processes() {
+    ps aux | grep "$1"
+}
+
+interactve(){
+    monitor_process
+    while true; do
+        # body
+    
+    
+    echo "1-list process"
+    echo "2-kill process"
+    echo "3-process statics"
+    echo "4-real time monitor"
+    echo "5-search "
+    echo "6-exit "
+    
+    read -p "Enter your choice: " choice
+
+    case "${choice}" in
+        1)
+            monitor_process
+        ;;
+        2)
+            read -p "please enter process id to kill" pid
+            kill_process "$pid"
+        ;;
+        3)
+            statics
+        ;;
+        4)
+            real_time_monitor
+        ;;
+        5)
+        read -p "Enter the process id to search: " Pid
+            search_processes "$Pid"
+        ;;
+        6) exit 
+        ;;
+        *) echo "Invalid choice" ;;
+    esac
+done
+}
+
+main() {
+    interactve
+}
+
+main
